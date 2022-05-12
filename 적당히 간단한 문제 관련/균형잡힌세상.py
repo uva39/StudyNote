@@ -1,38 +1,27 @@
-# 스택을 활용해서 괄호가 있는 문장이 괄호가 적절히 배치되었는지 판정하는 문제임.
-# 나는 그냥 deque 써봄. 진짜 몰라서 써보긴 했는데, 없어도 코드 속도 차이는 없을듯?
-# TODO: 코드를 더 간결하게 쓰기. 이미 정답 코드이긴 함
-
-from collections import deque
-
 while True:
     Sentence = input()
-    B = True
 
-    if Sentence == '.':
+    if Sentence == '.': # 종료조건
         break
-
-    Temp = [1 for t in Sentence if t in '([])']
-    if len(Temp) == 0:
+    if not [1 for t in Sentence if t in '([])']: # 괄호가 아예 없을 때 yes처리
         print('yes')
         continue
 
-    queue = deque()
+    B = True
+    Stack = []
     for x in Sentence:
-        if x in '([':
-            queue.append(x)
-        elif x in ')]':
-            if len(queue) == 0:
+        if x in '([': # 여는 괄호는 Stack에 추가
+            Stack.append(x)
+        elif x in ')]': # 닫는 괄호는 여는 괄호와 상쇄되어 없어지게 됨
+            if len(Stack) == 0: # 여는 괄호가 아예 없는데 닫는 괄호가 들어오면 no처리
                 B = False
                 break
-            t = queue.pop()
-            if t + x == '(]' or t + x == '[)':
+            t = Stack.pop() # 가장 최근에 들어온 열린 괄호를 Stack에서 제거 후, 이게 뭔지 t에 저장
+            if t + x == '(]' or t + x == '[)': # t+x가 () 이나 [] 꼴이어야 함
                 B = False
                 break
 
-    if len(queue) != 0:
+    if len(Stack) != 0: # for문을 다 돌고도 열린 괄호가 남아있으면 no처리
         B = False
 
-    if B:
-        print('yes')
-    else:
-        print('no')
+    print('yes') if B else print('no')
