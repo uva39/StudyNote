@@ -9,7 +9,9 @@ Sort_ALL_IN_ONE.py 를 엄청 열심히 쓰다가 드디어 다 썼습니다.
 eval로 input을 받는 코드의 위험성 배움   
 리스트보다 Set, Dictionary가 빠른 경우를 이용하는 문제 풀이     
 [5 / 14]   
-Hash, Hashmap 자료구조를 통해 시간을 단축하는 문제 풀이   
+Hash, Hashmap 자료구조 = Dictionary  
+단계별로 풀어보기 집합과 맵 Clear  
+머신러닝 스터디 진도율 20%(Chapter1 + 실습, Chapter2 약간)  
 [5 / 15]   
 [5 / 16]   
 [5 / 17]   
