@@ -11,7 +11,8 @@ eval로 input을 받는 코드의 위험성 배움
 [5 / 14]   
 Hash, Hashmap 자료구조 = Dictionary  
 단계별로 풀어보기 집합과 맵 Clear  
-머신러닝 스터디 진도율 20%(Chapter1 + 실습, Chapter2 약간)  
+머신러닝 스터디 진도율 15% (Chapter1 + 실습)  
+기하 문제 약간  
 [5 / 15]   
 [5 / 16]   
 [5 / 17]   
