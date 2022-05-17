@@ -9,7 +9,6 @@ def dfs(start):
     for i in graph[start]: # 방금 방문한 그 점에 연결된 모든 정점에 대해서 반복한다.
         if not visited[i]: # 방문하지 않았으면
             dfs(i) # dfs 수행
-            # visited[i]=True
 
 def bfs(start):
     q = deque([start])

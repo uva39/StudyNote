@@ -56,3 +56,44 @@ for i in range(m+k):
     # 구간 합 출력의 경우
     else:
         print(interval_sum(b, c))
+
+
+'''
+# 주석 제거 version
+
+import sys
+input = sys.stdin.readline
+
+n, m, k = map(int, input().split())
+
+arr = [0]*(n+1)
+tree = [0]*(n+1)
+
+def update(i, diff):
+    while i <= n:
+        tree[i] += diff
+        i += (i & -i)
+
+def interval_sum(start, end):
+    def p_sum(i):
+        result = 0
+        while i > 0:
+            result += tree[i]
+            i -= (i & -i)
+        return result
+    return p_sum(end) - p_sum(start-1)
+
+for i in range(1, n+1):
+    x = int(input())
+    arr[i] = x
+    update(i, x)
+    
+for i in range(m+k):
+    a, b, c = map(int, input().split())
+    if a == 1:
+        update(b, c - arr[b])
+        arr[b] = c
+    else:
+        print(interval_sum(b, c))
+    
+'''
