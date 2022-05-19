@@ -25,7 +25,6 @@ def dfs(x, y):
 
 num = [0] # global 키워드 안쓰고 dfs 밖의 값을 바꾸기 위한 꼼수. 총 단지수
 numlist = [] # 총 단지수를 담기 위한 배열
-# cnt = 1 # 아파트 단지를 세기 위한 변수
 
 for a in range(n):
     for b in range(n): # n x n 정사각형 범위에 대해서
