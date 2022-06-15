@@ -22,13 +22,16 @@ if class_number == _num:
     while True:
         loops.pause(1000)  # 1초마다 loop
         agent.collect()
-        item = agent.get_item_detail(1)  # slot1의 아이템을 return
-        agent.set_item(0, 1, 1)
+        item = agent.get_item_detail(1)  # slot1의 아이템 저장
+        if item == AIR: # 아이템을 안받았을 경우
+            continue
+
+        for i in range(1, 37): # 인벤토리 초기화
+            agent.set_item(0, 1, i)
 
         if item in Foods:  # 입력받은 아이템이 음식일 경우
             hunger = Foods[item]
-            아이템
-            뿌리기(뼛가루, (item개수 * hunger) // 10)
+            아이템뿌리기(뼛가루, (item개수 * hunger) // 10)
         else:  # 음식이 아닐 경우
             print("고기류 음식을 입력해주세요")
             continue
@@ -39,3 +42,4 @@ else:
 # TODO: Foods 딕셔너리 (기호에 따라서 고기류만 해도 됨) *HARD*
 # TODO: 여기에 의사코드(sudo code)로 입력한 거 다 실제 코드로 고치기
 # TODO: 아이템뿌리기 함수 쓰기
+# TODO: 실제로 collect함수가 생각대로 동작하는지, agent.set_item(0, 1, 1)이 제대로 작동하는지
