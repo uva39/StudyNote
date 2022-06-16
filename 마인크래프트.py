@@ -22,15 +22,11 @@ def make_machine():  # 기계 생성 함수
         m_place(QUARTZ_SLAB, world(x - 3 + i, y + i - 1, z - 3))
         m_place(QUARTZ_SLAB, world(x + 3 - i, y + i - 1, z + 3))
 
-        # 나선형 내부계단 만들기
-    m_place(QUARTZ_SLAB, world(x - 1, y + 1, z - 1))
-    m_place(BLOCK_OF_QUARTZ, world(x, y + 1, z - 1))
-    m_place(QUARTZ_SLAB, world(x + 1, y + 2, z - 1))
-    m_place(BLOCK_OF_QUARTZ, world(x + 1, y + 2, z))
-    m_place(QUARTZ_SLAB, world(x + 1, y + 3, z + 1))
-    m_place(BLOCK_OF_QUARTZ, world(x, y + 3, z + 1))
-    m_place(QUARTZ_SLAB, world(x - 1, y + 4, z + 1))
-    m_place(BLOCK_OF_QUARTZ, world(x - 1, y + 4, z))
+        # 뼛가루 출구 생성
+    m_place(WATER, world(x + 1, y + 1, z + 1))
+    m_place(WOODEN_TRAPDOOR, world(x - 2, y + 1, z - 1))
+    m_place(WOOL, world(x - 2, y - 2, z - 1))
+    m_place(REDSTONE_TORCH, world(x - 2, y - 1, z - 1))
 
     # agent 위치 초기화
     agent.teleport(world(x, y + 1, z), WEST)
