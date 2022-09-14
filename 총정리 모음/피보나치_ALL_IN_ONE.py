@@ -58,6 +58,6 @@ def fibo_c(n): # ~백만까지 빠름
         return 1
     return matrix_pow(n- 1, a)[0][0]
 
-if __name__=='__main__':
+if __name__=="__main__":
     n = int(input())
     print(fibo_c(n))
