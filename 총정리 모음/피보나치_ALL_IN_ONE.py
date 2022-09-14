@@ -52,13 +52,12 @@ def matrix_pow(n, M):
 
 def fibo_c(n): # ~백만까지 빠름
     a = ((1, 1), (1, 0))
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
     return matrix_pow(n- 1, a)[0][0]
 
-n = int(input())
-if n == 0:
-    print(0)
-elif n == 1:
-        print(1)
-else:
+if __name__=='__main__':
+    n = int(input())
     print(fibo_c(n))
-
