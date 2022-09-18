@@ -72,7 +72,7 @@ def isPrime_Miller(n:int, __E__ = [True] * 101) -> bool:
         
 
 
-# Test input for Super Big Integer. Is following number prime?
+# Test input
 # 24815323469403931728221172233738523533528335161133543380459461440894543366372904768334987264000000000000000000479
 if __name__ == '__main__':
     num = int(sys.stdin.readline())
