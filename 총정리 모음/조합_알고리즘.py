@@ -2,6 +2,12 @@ import sys
 input = sys.stdin.readline
 sys.setrecursionlimit(2500)
 
+"""
+O(n)의 속도로 이항계수 nCr을 계산하는 코드.
+모듈러 역원과, 모듈러 역원에 관한 공식 하나를 이용함
+"""
+
+
 T = int(input())
 p = 1000000007
 ns, rs = [0]*T, [0]*T
