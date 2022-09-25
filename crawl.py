@@ -1,8 +1,8 @@
 #내장 모듈
-from urllib.request import *
 import sys
 import time
 from collections import deque
+import requests
 
 #외부 모듈
 from bs4 import *
@@ -10,42 +10,32 @@ import matplotlib.pyplot as p
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
-def extractLastPrice(webUrl, DN):  
-    """인터넷에서 주어진 일 수만큼 최근의 일일 종가를 추출
-       입력: webUrl (인터넷 주소), DN (추출할 일 수)
-       출력: 일일 종가 리스트(가장 오래된 종가부터 최근까지 순서대로 저장)
-    """
-    pList = [[] for _ in range(2)]
+
+def extractLastPrice(webUrl, DN):
+    pList = []
     for i in range(DN):
-        wp = urlopen(webUrl + str(i+1))
-        print(webUrl + str(i+1))
-        soup = BeautifulSoup(wp, 'html.parser')
-        print(soup.prettify())
-        trList = soup.find_all('tr')
-        print(trList)
+        req = requests.get(webUrl + str(i+1), headers={"User-agent":"Mozilla/5.0"})
+        soup = BeautifulSoup(req.text, 'html.parser')
+        trList = soup.find_all('tr', onmouseover='mouseOver(this)')
         for tr in trList:
             if tr.select('td')[0].text.strip():
-                pList[0].append(tr.find_all('td')[0].text.strip())
-                pList[1].append(tr.find_all('td')[1].text.strip())
-
-    print (f'{pList = }\n{len(pList) = }')   # 결과 확인 용(확인 후 주석처리)
+                temp = tr.find_all('td')[1].text.strip()
+                temp = float(temp.replace(',', ''))
+                pList.append(temp)
     return pList
 
 def makeMA (pList, numMA) :  
-    """이동평균선 리스트를 만든다
-       입력: pList(주식 종가 리스트), numMA (평균 낼 종가 수)
-       출력: mList (이동평균값 리스트)
-    """
-
+    q = deque(numMA*[pList[0]], maxlen=numMA)
     mList = []
-
-    print (mList,"size=",len(mList))   # 결과 확인 용(확인 후 주석처리)
+    for i in range(len(pList)):
+        q.append(pList[i])
+        mList.append(sum(q)/numMA)
     return mList
 
 def inputCompanyAndDays ():
     #회사 선택
     print ('1:samsung, 2:lge, 3:hynix')
-    inputName = input ('회사를 고르세요 : ')
+    inputName = input('회사를 고르세요 : ')
     if (inputName == '1'):
         webUrl = 'https://finance.naver.com/item/frgn.nhn?code=005930&page='
         companyName = 'samsung'
@@ -71,21 +61,15 @@ def inputCompanyAndDays ():
 
     return companyName, webUrl, days
 
-def drawGraph (pList):  
-    """주식 일일종가, 5일, 20일, 60일 이동평균선을 그린다.
-       입력: pList (주식 종가 리스트)
-       출력: 그래프
-    """
-
+def drawGraph (pList):
     days = len(pList)
-    print("일수=", days)
     #그래프의 x값 list 생성
     xAxis = list(range(-days + 1, 1)) # 100개면 -99~0개까지 x축을 만든다.
 
     #이동평균선 생성
-    MA5List  = makeMA (pList,  5)
-    MA20List = makeMA (pList, 20)
-    MA60List = makeMA (pList, 60)
+    MA5List  = makeMA(pList,  5)
+    MA20List = makeMA(pList, 20)
+    MA60List = makeMA(pList, 60)
 
     #종가와 이동평균선 그리기
     p.plot (xAxis, pList,    'r', label = stockName) #종가를 그린다.
