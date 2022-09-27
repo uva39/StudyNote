@@ -27,6 +27,7 @@ def dijkstra(start):
             if cost < distance[next[0]]:      # cost < 시작->node의인접노드(v) 거리
                 distance[next[0]] = cost
                 heapq.heappush(PQ, (cost, next[0]))
+    # return distance[b] 를 하면, start에서 특정한 node b까지 가는 최단경로도 구할 수 있다.
 
 
 dijkstra(start)
