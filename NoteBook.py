@@ -1,13 +1,14 @@
 import sys
 import heapq
 input = sys.stdin.readline
-n, m, x = map(int, input().split())
-INF = int(1e8)
-distance = [INF] * (n+1)
-graph = [[] for _ in range(n+1)]
-for _ in range(m): # 가중치 그래프 입력받는 잡기술
-    a, b, c = map(int, input().split())
-    graph[a].append((b, c))
+n, k = map(int, input().split())
+INF = int(1e6 + 1)
+distance = [INF] * INF
+
+def move(node):
+    yield (node + 1, 1)
+    yield (node - 1, 1)
+    yield (node * 2, 0)
 
 def dijkstra(start):
     PQ = []
@@ -19,18 +20,11 @@ def dijkstra(start):
         if distance[node] < dist:
             continue
         # 큐에서 뽑아낸 노드와 연결된 인접노드들 탐색
-        for next in graph[node]:
-            cost = distance[node] + next[1]   # 시작->node거리 + node->node의인접노드 거리(w)
-            if cost < distance[next[0]]:      # cost < 시작->node의인접노드(v) 거리
+        for next in move(node):
+            cost = distance[node] + next[1]
+            if 0 <= next[0] < INF and cost < distance[next[0]]:
                 distance[next[0]] = cost
                 heapq.heappush(PQ, (cost, next[0]))
-    # return distance[b] 를 하면, start에서 특정한 node b까지 가는 최단경로도 구할 수 있다.
+    return distance[k]
 
-
-dijkstra(start)
-
-for i in range(1, len(distance)):
-    if distance[i] == INF:
-        print('INF')
-    else:
-        print(distance[i])
+print(dijkstra(n))
