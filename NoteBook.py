@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import sys
 import heapq
 input = sys.stdin.readline
@@ -28,3 +29,43 @@ def dijkstra(start):
     return distance[k]
 
 print(dijkstra(n))
+=======
+digit = int(input())
+
+def Miller_Rabin(n:int,_a:int) -> bool:
+    d = (n-1) // 2
+    while d % 2 == 0:
+        if pow(_a,d,n) == n-1:
+            return True
+        d //= 2
+    t = pow(_a,d,n)
+    return True if t in (n-1, 1) else False
+
+def isPrime_Miller(n:int, __E__ = [True] * 101) -> bool:
+    for i in range(2, int(102**0.5)+1):
+        if __E__[i]:
+            for j in range(i*2, 101, i):
+                __E__[j] = False
+    if n <= 1:
+        return False
+    if n <= 100:
+        return True if __E__[n] else False
+    for a in [2, 7, 61]:
+        if not Miller_Rabin(n,a):
+            return False
+    return True
+
+def dfs(num):
+    if len(str(num)) == digit:
+        print(num)
+    else:
+        for i in range(10):
+            temp = num*10 + i
+            if isPrime_Miller(temp):
+                dfs(temp)
+
+dfs(2)
+dfs(3)
+dfs(5)
+dfs(7)
+>>>>>>> 45d945a (new)
