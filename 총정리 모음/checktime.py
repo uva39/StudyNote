@@ -26,6 +26,5 @@ def sum_flat(l):
 if __name__ == "__main__":
     n = 500
     m = [[i*n + j for j in range(n)] for i in range(n)]
-    
     sum_flat(m)
     comp_flat(m)
